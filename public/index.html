@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>媒体运营平台 · NEO</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <span class="brand-ring"></span>
+        <span class="brand-core">新</span>
+      </div>
+      <div>
+        <h1>媒体运营平台 <em>NEO</em></h1>
+        <p>MEDIA OPERATIONS OS · 搜集 → 整合 → 分类 → 汇总 → 制作 → 分发</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="clock" id="clock">--:--:--</div>
+      <select id="top-scan-interval" class="mini-select" title="自动扫描间隔">
+        <option value="0">定时：关</option>
+        <option value="10">10 分钟</option>
+        <option value="20">20 分钟</option>
+        <option value="30">30 分钟</option>
+        <option value="60">60 分钟</option>
+      </select>
+      <button id="btn-top-scan" class="btn ghost"><i class="iconfont icon-sousuo"></i>扫描</button>
+      <button id="btn-add-integration" class="btn ghost"><i class="icon-mes xinzeng1"></i>添加</button>
+      <button id="btn-config" class="btn ghost"><i class="icon-mes shezhi"></i>配置</button>
+      <button id="btn-run-all" class="btn primary">一键运行全流程</button>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <button class="nav-btn active" data-view="home"><i class="iconfont icon-shouye_huaban1"></i>图谱首页</button>
+    <button class="nav-btn" data-view="info"><i class="icon-mes tongji1"></i>信息汇总</button>
+    <button class="nav-btn" data-view="produce"><i class="icon-mes gongyi"></i>内容制作</button>
+    <button class="nav-btn" data-view="review"><i class="icon-mes ruzhishenhe"></i>内容审核</button>
+    <button class="nav-btn" data-view="distribute"><i class="icon-mes chanpingfabu"></i>分发平台</button>
+    <button class="nav-btn" data-view="analytics"><i class="icon-mes tongji1"></i>数据分析</button>
+  </nav>
+
+  <main>
+    <section id="view-home" class="view">
+      <div class="workspace graph-stage">
+        <div class="graph-wrap">
+          <div class="graph-head">
+            <span class="hint">悬停查看详情 · 单击聚焦整条链路 · 双击进入模块</span>
+            <span class="graph-tools">
+              <button id="btn-graph-drag" class="btn ghost" title="开启后可拖动节点自定义位置">✥ 拖动节点</button>
+              <button id="btn-graph-reset" class="btn ghost" hidden>重置位置</button>
+            </span>
+          </div>
+          <svg id="graph" viewBox="0 0 2030 912" role="img" aria-label="媒体运营中枢节点图"></svg>
+          <div id="graph-tooltip" class="tooltip" hidden></div>
+        </div>
+        <aside class="node-detail" id="node-detail" aria-live="polite">
+          <div class="detail-empty">
+            <span class="detail-scan"></span>
+            <p>将鼠标悬停在节点上<br />查看模块信息与操作</p>
+          </div>
+        </aside>
+      </div>
+
+      <aside class="home-hot" id="home-hot" aria-label="实时热点">
+        <div class="home-hot-head">
+          <h3>实时热点</h3>
+          <span class="home-hot-badge">≥60分</span>
+          <span class="hot-live"><i></i>自动刷新</span>
+          <button id="hot-toggle" class="hot-toggle" title="收起/展开">−</button>
+        </div>
+        <div class="home-hot-list" id="home-hot-list"></div>
+      </aside>
+
+      <div class="home-dock">
+        <button id="btn-dock-assistant" class="dock-btn"><i class="iconfont icon-shouye_huaban1"></i>工作助手</button>
+        <button id="btn-local-materials" class="dock-btn accent" data-panel="local"><i class="icon-mes ziyuan1"></i>本地素材</button>
+        <button id="btn-dock-board" class="dock-btn" data-panel="board"><i class="icon-mes tongji1"></i>详细看板</button>
+        <span class="dock-sep"></span>
+        <button id="btn-home-run-all" class="dock-btn accent" data-panel="run"><i class="icon-mes yiwancheng"></i>一键运行</button>
+        <button id="btn-home-fullscreen" class="dock-btn"><i class="icon-mes zonglan"></i><span class="btn-label">全屏</span></button>
+      </div>
+
+      <div class="advanced">
+        <div class="float-dialog-head">
+          <strong>详细看板</strong>
+          <span class="hint">六段流程卡片与运行记录</span>
+          <button class="float-close" data-close-panel="board" title="关闭">×</button>
+        </div>
+        <div class="pipeline" id="pipeline"></div>
+      </div>
+
+      <div class="local-panel">
+        <div class="float-dialog-head">
+          <strong>本地素材</strong>
+          <span class="hint">选择本地图片/视频/文件（可整文件夹），自动上传并扫描</span>
+          <button class="float-close" data-close-panel="local" title="关闭">×</button>
+        </div>
+        <div class="local-body">
+          <label>素材标题（可留空，默认用文件夹/批次名）
+            <input id="local-title" type="text" placeholder="例如：产品宣传素材" />
+          </label>
+          <div class="head-actions">
+            <input type="file" id="local-files" multiple hidden />
+            <button id="btn-local-files" class="btn ghost">选择文件</button>
+            <input type="file" id="local-folder" webkitdirectory multiple hidden />
+            <button id="btn-local-folder" class="btn ghost">选择文件夹</button>
+          </div>
+          <div id="local-progress" class="scan-status">尚未选择文件</div>
+          <div id="local-sessions"></div>
+          <div class="head-actions">
+            <button id="btn-local-start" class="btn primary">上传并开始制作</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-panel">
+        <div class="float-dialog-head">
+          <strong>一键运行</strong>
+          <span class="hint">完整流水线：采集 → 整合 → 分类 → 汇总 → 制作 → 分发审核</span>
+          <button class="float-close" data-close-panel="run" title="关闭">×</button>
+        </div>
+        <p class="view-note">先点「定时设置」选择扫描间隔，再点「立即执行一键运行全流程」；内容生成后进入 10 秒修改窗口，无意见自动进入发布审核，审核 10 秒无人工操作自动通过（模拟）。</p>
+        <div class="head-actions run-timer-row">
+          <button id="btn-run-timer" class="btn ghost">定时设置</button>
+          <select id="run-scan-interval" class="run-timer-select" hidden>
+            <option value="0">关闭（仅手动）</option>
+            <option value="10">每 10 分钟</option>
+            <option value="20">每 20 分钟</option>
+            <option value="30">每 30 分钟</option>
+            <option value="60">每 60 分钟</option>
+          </select>
+          <button id="btn-run-full-panel" class="btn primary">立即执行一键运行全流程</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-info" class="view" hidden>
+      <div class="panel-head">
+        <h2>信息汇总</h2>
+        <div class="head-actions">
+          <span class="hint" id="info-hint"></span>
+          <button id="btn-info-rerun" class="btn ghost">重新汇总评分</button>
+        </div>
+      </div>
+      <div class="info-mode-bar" role="tablist">
+        <button class="btn primary" data-info="classify">信息分类</button>
+        <button class="btn ghost" data-info="live">及时选题</button>
+        <button class="btn ghost" data-info="daily">每日选题</button>
+        <button class="btn ghost" data-info="weekly">每周选题</button>
+      </div>
+      <div id="info-zone" class="info-zone"></div>
+    </section>
+
+    <section id="view-classify" class="view" hidden>
+      <div class="panel-head">
+        <h2>信息汇总 · 分类库</h2>
+        <span class="hint" id="classify-hint">点击分类查看对应内容</span>
+      </div>
+      <div class="chip-row" id="classify-chips">
+        <button class="chip" data-cat="国际">国际</button>
+        <button class="chip" data-cat="国内">国内</button>
+        <button class="chip" data-cat="财经">财经</button>
+        <button class="chip" data-cat="八卦">八卦</button>
+        <button class="chip" data-cat="娱乐">娱乐</button>
+        <button class="chip" data-cat="游戏">游戏</button>
+        <button class="chip" data-cat="搞笑">搞笑</button>
+        <button class="chip" data-cat="微博TOP10">微博TOP10</button>
+        <button class="chip" data-cat="抖音TOP10">抖音TOP10</button>
+      </div>
+      <div id="classify-list" class="classify-list"></div>
+    </section>
+
+    <section id="view-summary" class="view" hidden>
+      <div class="panel-head">
+        <h2>信息汇总 · 40 维选题评分</h2>
+        <div class="head-actions">
+          <button id="btn-run-summary" class="btn ghost">重新汇总</button>
+        </div>
+      </div>
+      <div class="topic-bar">
+        <span class="hint">选题分析：</span>
+        <button id="btn-topic-live" class="btn ghost">及时选题</button>
+        <button id="btn-topic-daily" class="btn primary">每日选题</button>
+        <button id="btn-topic-weekly" class="btn ghost">每周选题</button>
+        <span id="topic-status" class="hint"></span>
+      </div>
+      <div id="topic-panel" class="topic-panel" hidden></div>
+      <p class="view-note">自动筛选传播评分 ≥80 的内容，包含标题、内容、评分、来源；每条可直接进入视频/图文制作。</p>
+      <div id="summary-list" class="summary-list"></div>
+    </section>
+
+    <section id="view-produce" class="view" hidden>
+      <div class="panel-head">
+        <h2>内容制作</h2>
+        <div class="prod-tabs">
+          <button class="prod-tab active" data-prod="video"><i class="iconfont icon-shipin"></i>视频制作</button>
+          <button class="prod-tab" data-prod="article"><i class="icon-mes tupian"></i>图文制作</button>
+          <button class="prod-tab" data-prod="image"><i class="icon-mes tupian1"></i>封面制作</button>
+        </div>
+      </div>
+
+      <div id="wf-bar" class="wf-bar" hidden>
+        <div class="wf-head">
+          <span class="wf-badge">AI 全自动流程</span>
+          <strong id="wf-phase-text">生成中…</strong>
+          <span id="wf-countdown" class="wf-countdown"></span>
+        </div>
+        <label>修改意见（默认 10 秒无输入 → 自动进入分发审核）
+          <input id="wf-comment" placeholder="例如：口播再简短一点 / 标题更吸引人 / 封面换深蓝色…" />
+        </label>
+        <div class="head-actions">
+          <button id="btn-wf-send" class="btn ghost">提交意见（停止自动）</button>
+          <button id="btn-wf-next" class="btn primary">立即进入下一步</button>
+        </div>
+      </div>
+
+      <div id="prod-video" class="prod-pane">
+        <div id="capcut-status" class="capcut-bar">
+          <span class="capcut-dot"></span><span id="capcut-status-text">剪映内核：检测中…</span>
+          <button id="btn-capcut-start" class="btn ghost" hidden>安装/启动 CapCut Mate</button>
+        </div>
+        <div class="prod-opts">
+          <label>制作模式
+            <select id="video-mode">
+              <option value="auto">全自动 · 剪映（有素材自动剪辑；无素材用图文成片/AI成片）</option>
+              <option value="manual">人工修改脚本后交给剪映</option>
+            </select>
+          </label>
+          <label>画幅
+            <select id="video-format">
+              <option value="1920x1080">横版 1920×1080（16:9，默认）</option>
+              <option value="1080x1920">竖版 1080×1920（9:16）</option>
+            </select>
+          </label>
+          <label>视频时长
+            <select id="video-duration">
+              <option value="30">30 秒</option>
+              <option value="60">60 秒</option>
+              <option value="90">90 秒</option>
+              <option value="120">120 秒</option>
+            </select>
+          </label>
+          <label>视频引擎
+            <select id="video-engine">
+              <option value="capcut">剪映 · CapCut Mate（默认）</option>
+              <option value="moneyprinter">MoneyPrinterTurbo · 一键短视频</option>
+              <option value="jimeng">即梦（CLI/API）</option>
+              <option value="custom-video">自定义视频模型</option>
+            </select>
+          </label>
+          <label>AI 模型
+            <select id="video-model">
+              <option value="deepseek-chat">deepseek-chat</option>
+              <option value="deepseek-reasoner">deepseek-reasoner</option>
+              <option value="custom">自定义（在配置中设置）</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>选择条目
+            <select id="video-select"></select>
+          </label>
+          <button id="btn-load-script" class="btn ghost">加载脚本</button>
+        </div>
+        <div class="gen-row">
+          <button id="btn-gen-video-variants" class="btn ghost">自动生成 3 个视频文案</button>
+          <span class="hint">生成后默认选 V1，可切换确认</span>
+        </div>
+        <div id="video-variants" class="variant-list"></div>
+        <label>视频脚本（可手工修改）
+          <textarea id="video-editor" rows="18" placeholder="选择条目后点击「加载脚本」，然后在这里直接修改"></textarea>
+        </label>
+        <div class="gen-row">
+          <input type="file" id="video-local-input" accept="video/*,image/*,.mp4,.mov,.webm,.png,.jpg,.jpeg,.webp" multiple hidden />
+          <button id="btn-video-upload" class="btn ghost">＋ 本地上传素材</button>
+          <span id="video-upload-status" class="hint">未上传本地视频/图片素材（MoneyPrinterTurbo 会优先使用）</span>
+        </div>
+        <div class="head-actions">
+          <button id="btn-confirm-video" class="btn primary">确认选用（默认 V1）</button>
+        </div>
+        <p class="view-note" style="margin:0">确认后自动按所选引擎生成视频内容，并进入分发平台选择步骤。</p>
+      </div>
+
+      <div id="prod-article" class="prod-pane" hidden>
+        <div class="form-row">
+          <label>选择条目
+            <select id="article-select"></select>
+          </label>
+          <label>排版主题
+            <select id="article-theme">
+              <option value="traework" selected>TraeWork 公众号排版（默认）</option>
+              <option value="default">经典蓝 default</option>
+              <option value="grace">优雅紫 grace</option>
+              <option value="modern">暖橙 modern</option>
+              <option value="simple">极简黑 simple</option>
+            </select>
+          </label>
+          <button id="btn-article-preview" class="btn ghost">生成预览</button>
+        </div>
+        <div class="gen-row">
+          <button id="btn-gen-article-variants" class="btn ghost">自动生成 3 个图文方案</button>
+          <span class="hint">生成后默认选 V1，可切换确认</span>
+        </div>
+        <div id="article-variants" class="variant-list"></div>
+        <div class="gen-row">
+          <input type="file" id="article-image-input" accept="image/*" multiple hidden />
+          <button id="btn-article-upload" class="btn ghost">＋ 本地上传图片</button>
+          <span id="article-upload-status" class="hint">上传后自动插入图文 Markdown，可预览</span>
+        </div>
+        <div class="head-actions">
+          <button id="btn-confirm-article" class="btn primary">确认选用（默认 V1）</button>
+          <button id="btn-copy-html" class="btn primary">复制微信 HTML</button>
+          <button id="btn-article-auto" class="btn ghost">从条目生成草稿</button>
+          <button id="btn-smart-article" class="btn ghost">AI 智能排版（自动配图）</button>
+        </div>
+        <div class="article-split">
+          <div class="editor-pane">
+            <label>Markdown 编辑框（实时同步排版）
+              <textarea id="article-md" rows="22" placeholder="选择条目后自动带出内容，也可直接编辑"></textarea>
+            </label>
+          </div>
+          <div class="preview-pane">
+            <span class="hint">图文排版实时预览</span>
+            <div id="article-preview-box" class="article-preview-box"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="prod-image" class="prod-pane" hidden>
+        <p class="view-note">封面会跟随视频画幅：视频横版 → 封面横版；视频竖版 → 封面竖版。支持免费 AI 生图、SVG 封面预览 / 导出 PNG、本地上传图片。</p>
+        <div class="form-row">
+          <label>封面画幅
+            <select id="cover-format">
+              <option value="1920x1080">横版 1920×1080（跟随横版视频）</option>
+              <option value="1080x1920">竖版 1080×1920（跟随竖版视频）</option>
+              <option value="1080x1080">方形 1080×1080</option>
+            </select>
+          </label>
+          <button id="btn-sync-cover" class="btn ghost">同步视频画幅</button>
+        </div>
+        <label>图片提示词
+          <textarea id="image-prompt" rows="8" placeholder="描述你要生成的图片，例如：黑色科技风海报，主体是发光的节点网络…"></textarea>
+        </label>
+        <div class="head-actions">
+          <button id="btn-gen-cover-variants" class="btn ghost">自动生成 3 个封面方案</button>
+          <button id="btn-confirm-cover" class="btn primary">确认封面（默认 V1）</button>
+          <button id="btn-image-copy" class="btn primary">复制提示词</button>
+          <button id="btn-image-from-item" class="btn ghost">从当前条目生成提示词</button>
+          <button id="btn-make-cover-ai" class="btn primary">AI 免费生图</button>
+          <button id="btn-make-cover-svg" class="btn ghost">生成 SVG 封面预览</button>
+          <button id="btn-cover-upload" class="btn ghost">本地上传图片</button>
+          <input type="file" id="cover-upload" accept="image/*" hidden />
+        </div>
+        <div id="cover-variants" class="variant-list"></div>
+      </div>
+    </section>
+
+    <section id="view-review" class="view" hidden>
+      <div class="panel-head">
+        <div class="review-title-row">
+          <h2><i class="icon-mes ruzhishenhe"></i>内容审核</h2>
+          <select id="review-status-filter">
+            <option value="all">全部</option>
+            <option value="pending">待审核</option>
+            <option value="done">已审核</option>
+          </select>
+        </div>
+        <div class="head-actions">
+          <span class="hint">点击“审核”进入视频/图文/封面审核</span>
+          <button id="btn-review-refresh" class="btn ghost">刷新</button>
+        </div>
+      </div>
+      <div class="review-tools">
+        <label>按时间查看
+          <input type="date" id="review-date" />
+        </label>
+        <button id="btn-review-clear-date" class="btn ghost">全部时间</button>
+      </div>
+      <div id="review-workbench" class="review-workbench"></div>
+    </section>
+
+    <section id="view-distribute" class="view" hidden>
+      <div class="panel-head">
+        <h2>分发平台</h2>
+        <div class="head-actions">
+          <button id="btn-open-review" class="btn ghost"><i class="icon-mes ruzhishenhe"></i>内容审核</button>
+          <button id="btn-add-platform" class="btn ghost">＋ 添加平台</button>
+          <button id="btn-add-account" class="btn primary">＋ 添加账号</button>
+        </div>
+      </div>
+      <div class="flow-workspace">
+        <div class="flow-toolbar">
+          <button id="btn-flow-clear" class="btn ghost">清空连接</button>
+          <span class="hint">把左侧内容节点拖到右侧平台节点即可连接；内容可连接多个平台，节点可自由拖动</span>
+          <select id="flow-status-filter" title="发布状态">
+            <option value="all">全部</option>
+            <option value="sent">已发送</option>
+            <option value="unsent">未发送</option>
+          </select>
+          <span class="flow-published-list" id="flow-published-list"></span>
+          <label class="inline">发布时间
+            <input type="datetime-local" id="flow-time" style="width:auto" />
+          </label>
+          <div class="head-actions">
+            <button id="btn-flow-confirm" class="btn primary">确认</button>
+            <button id="btn-flow-publish" class="btn primary">一键发布</button>
+            <button id="btn-flow-del-line" class="btn ghost" hidden>删除选中连线</button>
+          </div>
+        </div>
+        <div id="flow-canvas" class="flow-canvas">
+          <svg id="flow-lines" class="flow-lines"></svg>
+        </div>
+      </div>
+      <div class="dist-grid" id="dist-grid"></div>
+    </section>
+
+  <dialog id="add-account-dialog">
+    <div class="dialog-head">
+      <h2>添加分发账号</h2>
+      <button id="btn-close-account" class="btn ghost">关闭</button>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <label>选择平台
+        <select id="acct-platform">
+          <option value="抖音">抖音</option>
+          <option value="小红书">小红书</option>
+          <option value="微博">微博</option>
+          <option value="视频号">视频号</option>
+          <option value="B站">B站</option>
+          <option value="快手">快手</option>
+          <option value="YouTube">YouTube</option>
+          <option value="X">X (Twitter)</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Instagram">Instagram</option>
+        </select>
+      </label>
+      <label>账号分类
+        <select id="acct-category">
+          <option value="综合">综合</option>
+          <option value="财经">财经</option>
+          <option value="娱乐">娱乐</option>
+          <option value="八卦">八卦</option>
+          <option value="游戏">游戏</option>
+          <option value="搞笑">搞笑</option>
+          <option value="国际">国际</option>
+          <option value="国内">国内</option>
+        </select>
+      </label>
+      <label>昵称
+        <input id="acct-nickname" type="text" placeholder="例如：运营小号A" />
+      </label>
+      <label>账号名 / ID / 手机号
+        <input id="acct-account" type="text" placeholder="登录账号或平台ID" />
+      </label>
+      <label>头像图片地址（可选，留空用昵称首字生成）
+        <input id="acct-avatar" type="text" placeholder="https://…/avatar.png" />
+      </label>
+      <label>备注
+        <input id="acct-remark" type="text" placeholder="例如：主号 / 矩阵号3" />
+      </label>
+      <div id="acct-auth-fields"></div>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-save-account" class="btn primary">保存账号</button>
+    </div>
+  </dialog>
+
+  <dialog id="add-platform-dialog">
+    <div class="dialog-head">
+      <h2>添加分发平台</h2>
+      <button id="btn-close-platform" class="btn ghost">关闭</button>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <label>平台名称
+        <input id="new-platform-name" type="text" placeholder="例如：B站 / 快手" maxlength="12" />
+      </label>
+      <label>默认内容类型
+        <select id="new-platform-type">
+          <option value="视频">视频平台（视频 + 封面）</option>
+          <option value="图文">图文平台（图文 + 封面）</option>
+        </select>
+      </label>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-save-platform" class="btn primary">添加平台</button>
+    </div>
+  </dialog>
+
+  <dialog id="add-category-dialog">
+    <div class="dialog-head">
+      <h2>新增信息分类</h2>
+      <button id="btn-close-category" class="btn ghost">关闭</button>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <p class="view-note">填写分类名称后，系统会自动为该分类生成 20 个流量大站/平台的搜索采集源，并入每次全网扫描。</p>
+      <label>分类名称
+        <input id="new-category-name" type="text" placeholder="例如：母婴 / 汽车 / 美妆" maxlength="12" />
+      </label>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-save-category" class="btn primary">生成并添加</button>
+    </div>
+  </dialog>
+
+    <section id="view-schedule" class="view" hidden>
+      <div class="panel-head">
+        <h2>自动扫描与定时任务</h2>
+      </div>
+      <div class="form-row">
+        <label>全网扫描间隔
+          <select id="scan-interval">
+            <option value="0">关闭</option>
+            <option value="10">每 10 分钟</option>
+            <option value="20">每 20 分钟</option>
+            <option value="30">每 30 分钟</option>
+            <option value="60">每 60 分钟</option>
+          </select>
+        </label>
+        <button id="btn-save-schedule" class="btn primary">保存定时设置</button>
+        <button id="btn-scan-now" class="btn ghost">立即扫描一次</button>
+      </div>
+      <div id="scan-status" class="scan-status"></div>
+    </section>
+
+    <section id="view-analytics" class="view" hidden>
+      <div class="panel-head">
+        <h2><i class="icon-mes tongji1"></i>账号数据分析</h2>
+        <div class="head-actions">
+          <span class="hint">按平台/账号整理数据，自动生成分析、问题与决策</span>
+          <button id="btn-analytics-save" class="btn ghost">保存数据</button>
+          <button id="btn-analytics-report" class="btn primary">生成分析报告</button>
+        </div>
+      </div>
+      <div class="analytics-tools">
+        <select id="analytics-scope">
+          <option value="daily">日报</option>
+          <option value="weekly">周报</option>
+          <option value="monthly">月报</option>
+          <option value="yearly">年报</option>
+        </select>
+        <input type="date" id="analytics-date" />
+      </div>
+      <div id="analytics-box" class="analytics-box"></div>
+    </section>
+
+    <section id="view-publish" class="view" hidden>
+      <div class="panel-head">
+        <h2>发布审核</h2>
+        <div class="head-actions">
+          <button id="btn-audit-refresh" class="btn ghost">刷新</button>
+          <button id="btn-audit-publish" class="btn primary">全部审核发布</button>
+        </div>
+      </div>
+      <div id="audit-bar" class="wf-bar" hidden>
+        <div class="wf-head">
+          <span class="wf-badge">审核窗口</span>
+          <strong id="audit-phase-text">等待审核…</strong>
+          <span id="audit-countdown" class="wf-countdown"></span>
+        </div>
+        <p class="view-note">每个平台点「发布」单独发布；点「全部审核发布」默认发布全部平台；10 秒无人操作将自动通过（模拟）。</p>
+      </div>
+      <div id="audit-box" class="audit-box"></div>
+    </section>
+  </main>
+
+  <dialog id="config-dialog">
+    <div class="dialog-head">
+      <h2>系统配置</h2>
+      <button id="btn-close-config" class="btn ghost">关闭</button>
+    </div>
+    <div class="config-form">
+      <label>行业/赛道
+        <input id="cfg-niche" type="text" />
+      </label>
+      <label>目标受众
+        <input id="cfg-audience" type="text" />
+      </label>
+      <label>内容风格
+        <input id="cfg-style" type="text" />
+      </label>
+      <label>目标平台（逗号分隔）
+        <input id="cfg-platforms" type="text" />
+      </label>
+      <label>最多收集条数
+        <input id="cfg-max-items" type="number" min="1" max="50" />
+      </label>
+      <label>最多选用条数
+        <input id="cfg-max-picks" type="number" min="1" max="10" />
+      </label>
+      <fieldset>
+        <legend>AI 引擎（基础文案 / 图片 / 视频模型）</legend>
+        <label class="inline"><input id="cfg-ai-enabled" type="checkbox" /> 启用 AI 生成文案</label>
+        <label>接口地址
+          <input id="cfg-ai-url" type="text" />
+        </label>
+        <label>基础 AI 模型（文案 / 评分 / 脚本）
+          <input id="cfg-ai-model" type="text" />
+        </label>
+        <label>API Key（留空则读环境变量 DEEPSEEK_API_KEY）
+          <input id="cfg-ai-key" type="password" placeholder="sk-..." />
+        </label>
+        <label>图片生成模型
+          <select id="cfg-image-model">
+            <option value="pollinations-flux">免费 Pollinations · FLUX（无需 Key，默认）</option>
+            <option value="pollinations-turbo">免费 Pollinations · Turbo（更快）</option>
+            <option value="jimeng">即梦图片（CLI/API）</option>
+            <option value="custom-image">自定义图片模型（在“＋ 添加”中配置）</option>
+          </select>
+        </label>
+        <label>视频生成模型
+          <select id="cfg-video-model">
+            <option value="capcut">剪映 · 本地自动剪辑（默认）</option>
+            <option value="moneyprinter">MoneyPrinterTurbo · 一键短视频</option>
+            <option value="jimeng">即梦视频（CLI/API）</option>
+            <option value="custom-video">自定义视频模型（在“＋ 添加”中配置）</option>
+          </select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>官方信息来源（央媒 / 部委，JSON）</legend>
+        <textarea id="cfg-sources" rows="6"></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>分类信息来源（国际已含 20 个全球站点；按分类维护 JSON）</legend>
+        <textarea id="cfg-category-sources" rows="10" placeholder='{"国际":[{"name":"BBC News","url":"https://www.bbc.com/news","type":"html"}],"国内":[]}'></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>集成与技能（即梦 / 其它大模型 / Skill 模板，JSON）</legend>
+        <textarea id="cfg-integrations" rows="6" placeholder='{"jimeng":{"apiKey":"","endpoint":"https://jimeng.jianying.com"},"llm":[],"skills":[]}'></textarea>
+      </fieldset>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-save-config" class="btn primary">保存配置</button>
+    </div>
+  </dialog>
+
+  <dialog id="add-dialog">
+    <div class="dialog-head">
+      <h2>一键添加 API / Skill / 插件 / 大模型</h2>
+      <button id="btn-close-add" class="btn ghost">关闭</button>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <label>类型
+        <select id="add-kind">
+          <option value="auto">自动识别</option>
+          <option value="skill">Skill / 插件（粘贴网址或名称）</option>
+          <option value="api">API 接口</option>
+          <option value="llm">大模型（免费/付费）</option>
+          <option value="jimeng">即梦 API</option>
+        </select>
+      </label>
+      <label>粘贴内容（网址 / skill 名 / 接口描述）
+        <textarea id="add-source" rows="4" placeholder="例如：https://skills.sh/uizze.com/anti-ui-slop 或 genmedia-labs/skills@ai-image-generation，或 http://localhost:11434/v1，或 curl -s https://jimeng.jianying.com/cli | bash"></textarea>
+      </label>
+      <div id="add-fields" hidden>
+        <label>显示名称
+          <input id="add-name" type="text" placeholder="例如：Ollama / 即梦 / GPT" />
+        </label>
+        <label>接口地址
+          <input id="add-base" type="text" placeholder="https://api.example.com/v1" />
+        </label>
+        <label>模型名
+          <input id="add-model" type="text" placeholder="例如：qwen2.5:3b / deepseek-chat" />
+        </label>
+        <label>API Key（可留空，需要时再弹窗索取）
+          <input id="add-key" type="password" placeholder="sk-..." />
+        </label>
+      </div>
+      <div id="add-status" class="add-status" hidden></div>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-add-run" class="btn primary">一键添加</button>
+    </div>
+  </dialog>
+
+  <dialog id="key-dialog">
+    <div class="dialog-head">
+      <h2 id="key-title">需要密钥</h2>
+      <button id="btn-close-key" class="btn ghost">取消</button>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <p id="key-note" class="view-note">该服务需要 API Key 才能使用，请输入密钥。</p>
+      <label>API Key
+        <input id="key-input" type="password" placeholder="sk-..." />
+      </label>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-key-ok" class="btn primary">确认并添加</button>
+    </div>
+  </dialog>
+
+  <dialog id="item-dialog">
+    <div class="dialog-head">
+      <h2 id="item-title">详情</h2>
+      <div class="preview-actions">
+        <button id="btn-close-item" class="btn ghost">关闭</button>
+      </div>
+    </div>
+    <div id="item-body" class="item-body"></div>
+  </dialog>
+
+  <dialog id="preview-dialog">
+    <div class="dialog-head">
+      <h2 id="preview-title">产出预览</h2>
+      <div class="preview-actions">
+        <button id="btn-download" class="btn ghost" hidden>下载</button>
+        <button id="btn-export-png" class="btn ghost" hidden>导出 PNG</button>
+        <button id="btn-close-preview" class="btn ghost">关闭</button>
+      </div>
+    </div>
+    <div id="preview-body" class="preview-body"></div>
+  </dialog>
+
+  <dialog id="report-dialog">
+    <div class="dialog-head">
+      <h2 id="report-title">报告修改</h2>
+      <div class="preview-actions">
+        <button id="btn-report-save" class="btn primary">保存修改</button>
+        <button id="btn-close-report" class="btn ghost">关闭</button>
+      </div>
+    </div>
+    <div class="config-form" style="grid-template-columns:1fr">
+      <textarea id="report-edit" rows="24" style="width:100%;font-family:var(--mono);font-size:12px"></textarea>
+    </div>
+  </dialog>
+
+  <dialog id="workbench-review-dialog">
+    <div class="dialog-head">
+      <h2 id="wb-review-title">内容审核</h2>
+      <div class="preview-actions">
+        <button id="btn-close-wb-review" class="btn ghost">关闭</button>
+      </div>
+    </div>
+    <div class="wb-review-body">
+      <div class="wb-review-tabs">
+        <button class="chip active" data-wb-tab="video">视频</button>
+        <button class="chip" data-wb-tab="article">图文</button>
+        <button class="chip" data-wb-tab="cover">封面</button>
+      </div>
+      <div id="wb-review-preview" class="wb-review-preview"></div>
+    </div>
+    <div class="dialog-foot">
+      <button id="btn-wb-review-edit" class="btn ghost">修改</button>
+      <button id="btn-wb-review-approve" class="btn primary">通过</button>
+    </div>
+  </dialog>
+
+  <dialog id="review-picker-dialog">
+    <div class="dialog-head">
+      <h2>选择待审核内容</h2>
+      <div class="preview-actions">
+        <button id="btn-close-review-picker" class="btn ghost">关闭</button>
+      </div>
+    </div>
+    <div id="review-picker-list" class="review-picker-list"></div>
+  </dialog>
+
+  <button id="assistant-fab" class="assistant-fab" title="工作助手">工作助手</button>
+  <div id="assistant-widget" class="assistant-widget" hidden>
+    <div class="assistant-widget-head">
+      <strong>工作助手</strong>
+      <span class="hint">支持历史对话上下文 · 随时对话</span>
+      <span class="assistant-actions">
+        <button id="btn-assistant-pin" class="btn ghost" title="固定/取消固定">固定</button>
+        <button id="btn-assistant-close" class="btn ghost" title="关闭">×</button>
+      </span>
+    </div>
+    <div id="assistant-history" class="chat-log"></div>
+    <div class="assistant-shortcuts">
+      <button class="shortcut" data-cmd="及时选题">及时选题</button>
+      <button class="shortcut" data-cmd="每日选题">每日选题</button>
+      <button class="shortcut" data-cmd="每周选题">每周选题</button>
+      <button class="shortcut" data-cmd="整理日报">整理日报</button>
+      <button class="shortcut" data-cmd="一键运行全流程">一键运行</button>
+    </div>
+    <form id="home-chat-form" class="chat-form" autocomplete="off">
+      <input id="home-chat-input" type="text" placeholder="输入指令或与我讨论选题，Enter 发送…" />
+      <button type="submit" class="btn primary">发送</button>
+    </form>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>
