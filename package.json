@@ -1,0 +1,11 @@
+{
+  "name": "media-operations-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "本地媒体运营平台：搜集信息→整合→分类→汇总→制作→分发→数据分析",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "run-all": "node scripts/run-all.mjs"
+  }
+}
