@@ -1,0 +1,496 @@
+{
+  "国际": [
+    {
+      "name": "BBC News",
+      "url": "https://www.bbc.com/news",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "CNN",
+      "url": "https://www.cnn.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "The New York Times",
+      "url": "https://www.nytimes.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "The Guardian",
+      "url": "https://www.theguardian.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Reuters",
+      "url": "https://www.reuters.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Associated Press",
+      "url": "https://apnews.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Al Jazeera",
+      "url": "https://www.aljazeera.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "The Economist",
+      "url": "https://www.economist.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Fox News",
+      "url": "https://www.foxnews.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Google News",
+      "url": "https://news.google.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "AFP 法新社",
+      "url": "https://www.afp.com/en",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Bloomberg 彭博",
+      "url": "https://www.bloomberg.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "Financial Times 金融时报",
+      "url": "https://www.ft.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "The Wall Street Journal 华尔街日报",
+      "url": "https://www.wsj.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "France 24 法国24",
+      "url": "https://www.france24.com/en/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "DW 德国之声",
+      "url": "https://www.dw.com/en/top-stories/s-9097",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "NHK World-Japan 日本放送协会",
+      "url": "https://www3.nhk.or.jp/nhkworld/en/news/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "CGTN 中国国际电视台",
+      "url": "https://www.cgtn.com/news/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "The Washington Post 华盛顿邮报",
+      "url": "https://www.washingtonpost.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "NBC News",
+      "url": "https://www.nbcnews.com",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "国内": [
+    {
+      "name": "新华网",
+      "url": "https://www.xinhuanet.com",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "人民网",
+      "url": "https://www.people.com.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "央视网",
+      "url": "https://www.cctv.com",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国网",
+      "url": "https://www.china.com.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国日报网",
+      "url": "https://www.chinadaily.com.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "光明网",
+      "url": "https://www.gmw.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "央广网",
+      "url": "https://www.cnr.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国际在线",
+      "url": "https://www.cri.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "新浪新闻",
+      "url": "https://news.sina.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "腾讯新闻",
+      "url": "https://news.qq.com",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "财经": [
+    {
+      "name": "东方财富网",
+      "url": "https://www.eastmoney.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "金融界",
+      "url": "https://www.jrj.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "财新网",
+      "url": "https://www.caixin.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "第一财经",
+      "url": "https://www.yicai.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "每经网",
+      "url": "https://www.nbd.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "界面新闻",
+      "url": "https://www.jiemian.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "21经济网",
+      "url": "https://www.21jingji.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "中国经济网",
+      "url": "https://www.ce.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "中新经纬",
+      "url": "https://www.jwview.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "经济观察网",
+      "url": "https://www.eeo.com.cn",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "八卦": [
+    {
+      "name": "新浪娱乐",
+      "url": "https://ent.sina.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "搜狐娱乐",
+      "url": "https://yule.sohu.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "网易娱乐",
+      "url": "https://ent.163.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "腾讯娱乐",
+      "url": "https://ent.qq.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "中华网娱乐",
+      "url": "https://ent.china.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "海峡网娱乐",
+      "url": "https://www.hxnews.com/news/yl/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "闽南网娱乐",
+      "url": "https://www.mnw.cn/news/ent/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "半岛网明星",
+      "url": "https://news.bandao.cn/c/mingxing.html",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "今日头条",
+      "url": "https://www.toutiao.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "豆瓣小组",
+      "url": "https://www.douban.com/group/",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "娱乐": [
+    {
+      "name": "新华娱乐",
+      "url": "https://ent.news.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "光明网文娱",
+      "url": "https://e.gmw.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国网娱乐",
+      "url": "http://ent.china.com.cn",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "CCTV-6电影网",
+      "url": "https://tv.cctv.com/cctv6",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "金羊娱乐",
+      "url": "https://ent.ycwb.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "千龙网娱乐",
+      "url": "https://www.qianlong.com/ent/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "江西娱乐网",
+      "url": "https://ent.jxnews.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "豆瓣电影",
+      "url": "https://movie.douban.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "时光网",
+      "url": "http://www.mtime.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "猫眼娱乐",
+      "url": "https://maoyan.com",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "游戏": [
+    {
+      "name": "游民星空",
+      "url": "https://www.gamersky.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "3DMGame",
+      "url": "https://www.3dmgame.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "游侠网",
+      "url": "https://www.ali213.net",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "17173游戏网",
+      "url": "https://www.17173.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "多玩游戏",
+      "url": "https://www.duotegame.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "游戏狗",
+      "url": "https://www.gamedog.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "GameKee",
+      "url": "https://www.gamekee.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "IGN中国",
+      "url": "https://www.ign.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "4Gamer",
+      "url": "https://www.4gamer.net",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "新浪游戏",
+      "url": "https://games.sina.com.cn",
+      "type": "html",
+      "level": "B"
+    }
+  ],
+  "搞笑": [
+    {
+      "name": "ZOL笑话频道",
+      "url": "https://xiaohua.zol.com.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "笑话集",
+      "url": "https://www.jokeji.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "最搞笑",
+      "url": "https://www.zuigaoxiao.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "辣囧网",
+      "url": "https://www.lajiong.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "搜狐搞笑",
+      "url": "https://mt.sohu.com/kindfeed/fun/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "卢松松博客段子",
+      "url": "https://lusongsong.com/yulu/",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "笑话代王",
+      "url": "https://www.jokedw.com",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "每日笑话",
+      "url": "https://www.mryxh.cn",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "网易轻松一刻",
+      "url": "https://www.163.com/dy",
+      "type": "html",
+      "level": "B"
+    },
+    {
+      "name": "知乎搞笑话题",
+      "url": "https://www.zhihu.com/topic/19551211",
+      "type": "html",
+      "level": "B"
+    }
+  ]
+}
