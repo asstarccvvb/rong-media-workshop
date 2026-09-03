@@ -1,0 +1,256 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3211
+  },
+  "workflow": {
+    "niche": "财经/科技",
+    "audience": "关注市场与行业动态的普通用户",
+    "style": "通讯稿风格（权威、客观、数据准确、带来源）",
+    "maxItems": 10,
+    "maxPicks": 5,
+    "scanMinutes": 0,
+    "platforms": [
+      "抖音",
+      "小红书",
+      "微博",
+      "视频号",
+      "B站",
+      "快手",
+      "YouTube",
+      "X",
+      "TikTok",
+      "Instagram"
+    ],
+    "posterTheme": {
+      "titleColor": "#58a6ff",
+      "bgStart": "#0d1117",
+      "bgEnd": "#161b22",
+      "accent": "#f0b90b"
+    }
+  },
+  "sources": [
+    {
+      "name": "人民日报",
+      "url": "https://politics.people.com.cn/GB/1024/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "新华社",
+      "url": "https://www.news.cn/politics/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "央视新闻",
+      "url": "https://news.cctv.com/yaowen/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "央广网",
+      "url": "https://www.cnr.cn/news/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "光明日报",
+      "url": "https://politics.gmw.cn/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "经济日报",
+      "url": "https://www.ce.cn/xwzx/gnsz/gdxw/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国日报",
+      "url": "https://www.chinadaily.com.cn/china",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "科技日报",
+      "url": "http://www.stdaily.com/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "工人日报",
+      "url": "http://www.workercn.cn/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国青年报",
+      "url": "http://www.cyol.com/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国人民银行",
+      "url": "http://www.pbc.gov.cn/goutongjiaoliu/113456/113469/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "财政部",
+      "url": "http://www.mof.gov.cn/zhengwuxinxi/caizhengxinwen/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家发展改革委",
+      "url": "https://www.ndrc.gov.cn/xwdt/xwfb/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国证监会",
+      "url": "http://www.csrc.gov.cn/csrc/c100028/common_list.shtml",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家统计局",
+      "url": "https://www.stats.gov.cn/sj/zxfb/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "金融监管总局",
+      "url": "https://www.nfra.gov.cn/cn/view/pages/ItemList.html?itemPId=920",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家外汇管理局",
+      "url": "https://www.safe.gov.cn/safe/whxw/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "商务部",
+      "url": "http://www.mofcom.gov.cn/article/xwfb/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家税务总局",
+      "url": "https://www.chinatax.gov.cn/chinatax/n810209/n810641/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "上海证券交易所",
+      "url": "http://www.sse.com.cn/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "工业和信息化部",
+      "url": "https://www.miit.gov.cn/xwdt/gxdt/sjdt/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "科技部",
+      "url": "https://www.most.gov.cn/kjbgz/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家网信办",
+      "url": "http://www.cac.gov.cn/gzdt.htm",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家知识产权局",
+      "url": "https://www.cnipa.gov.cn/col/col61/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国科学院",
+      "url": "https://www.cas.cn/syky/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国工程院",
+      "url": "https://www.cae.cn/cae/html/main/col1/col_1.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家航天局",
+      "url": "https://www.cnsa.gov.cn/n6758823/n6758838/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家标准化管理委员会",
+      "url": "https://www.sac.gov.cn/xw/",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "中国科协",
+      "url": "https://www.cast.org.cn/col/col442/index.html",
+      "type": "html",
+      "level": "A"
+    },
+    {
+      "name": "国家能源局",
+      "url": "https://www.nea.gov.cn/xwzx/nyxw.htm",
+      "type": "html",
+      "level": "A"
+    }
+  ],
+  "ai": {
+    "enabled": true,
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "apiKey": "",
+    "imageModel": "jimeng",
+    "videoModel": "moneyprinter"
+  },
+  "integrations": {
+    "jimeng": {
+      "apiKey": "",
+      "endpoint": "https://jimeng.jianying.com",
+      "cliInstalled": true,
+      "cliPath": "C:\\Users\\xh\\bin\\dreamina.exe",
+      "cliVersionFile": "C:\\Users\\xh\\.dreamina_cli\\version.json",
+      "cliSkillPath": "C:\\Users\\xh\\.dreamina_cli\\dreamina\\SKILL.md"
+    },
+    "capcutMate": {
+      "enabled": true,
+      "dir": "integrations/capcut-mate",
+      "api": "http://127.0.0.1:30000",
+      "cloud": "https://capcut-mate.jcaigc.cn",
+      "aiTool": "剪映图文成片（无素材时）"
+    },
+    "moneyPrinterTurbo": {
+      "enabled": true,
+      "dir": "integrations/MoneyPrinterTurbo",
+      "api": "http://127.0.0.1:8080"
+    },
+    "iconfont": {
+      "url": "https://www.iconfont.cn",
+      "cssUrl": "https://at.alicdn.com/t/c/font_1474617_sprzss0xlhj.css",
+      "jsUrl": "",
+      "note": "填入 iconfont 项目的 css/js 地址后，UI 自动加载图标字体",
+      "cssUrls": [
+        "https://at.alicdn.com/t/c/font_1474617_sprzss0xlhj.css",
+        "https://at.alicdn.com/t/font_3231515_h5tzgobi5z.css"
+      ]
+    },
+    "llm": [],
+    "skills": []
+  }
+}
